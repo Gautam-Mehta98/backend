@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <div id='root'>
+        <h2> Add Product </h2>
+        <form>
+            <label> product </label>
+            <select id="category">
+                <option value=""> Select Category</option>
+            </select> <br />
+
+            <label> model </label>
+            <select id="subCategory">
+                <option value=""> Select Sub Category </option>
+            </select> <br />
+
+             </form>
+    </div>
+
+    <script>
+        var categories = [
+            { id: 1, name: 'iphone' },
+            { id: 2, name: 'macbook' },
+            { id: 3, name: 'ipad' }
+        ];
+        var subCategories = [
+            { id: 1, categoryId: 1, name: 'iphone Xs' },
+            { id: 2, categoryId: 1, name: 'iphone X' },
+            { id: 3, categoryId: 1, name: 'iphone 8' },
+            { id: 4, categoryId: 2, name: 'macbook pro' },
+            { id: 5, categoryId: 2, name: 'macbook air' },
+            { id: 6, categoryId: 1, name: 'iphone 7' },
+            { id: 7, categoryId: 3, name: 'ipad pro' },
+            { id: 8, categoryId: 3, name: 'ipad mini' },
+            { id: 9, categoryId: 2, name: 'macbook' }
+        ];
+
+       
+
+        var categoryHandle = document.getElementById('category');
+        var subCategoryHandle = document.getElementById('subCategory');
+        console.log(subCategoryHandle);
+
+        categories.forEach(function (category) {
+            var optionTag = document.createElement('option');
+            optionTag.setAttribute('value', category.id);
+            var text = document.createTextNode(category.name);
+            optionTag.appendChild(text);
+            categoryHandle.appendChild(optionTag);
+        });
+
+        function buildSubCategories(subCategories) {
+            subCategories.forEach(function (subCategory) {
+                var optionTag = document.createElement('option');
+                optionTag.setAttribute('value', subCategory.id);
+                var text = document.createTextNode(subCategory.name);
+                optionTag.appendChild(text);
+                subCategoryHandle.appendChild(optionTag);
+            });
+        }
+        buildSubCategories(subCategories);
+
+        categoryHandle.addEventListener('change', function () {
+            var filteredSubCategories = subCategories.filter(function (subCategory) {
+                return subCategory.categoryId == categoryHandle.value;
+            });
+            subCategoryHandle.innerHTML = '';
+            buildSubCategories(filteredSubCategories);
+        }, false)
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

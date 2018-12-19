@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <div id='root'>
+        <h2> Add Product </h2>
+        <form>
+            <label> product </label>
+            <select id="category">
+                <option value=""> Select Category</option>
+            </select> <br />
+
+            <label> model </label>
+            <select id="subCategory">
+                <option value=""> Select Sub Category </option>
+            </select> <br />
+
+            <label> storage </label>
+            <select id="subsubCategory">
+                <option value=""> Select Sub Category </option>
+            </select> <br />
+
+
+             </form>
+    </div>
+
+    <script>
+        var categories = [
+            { id: 1, name: 'iphone' },
+            { id: 2, name: 'macbook' },
+            { id: 3, name: 'ipad' }
+        ];
+        var subCategories = [
+            { id: 1, categoryId: 1, name: 'iphone Xs' },
+            { id: 2, categoryId: 1, name: 'iphone X' },
+            { id: 3, categoryId: 1, name: 'iphone 8' },
+            { id: 4, categoryId: 2, name: 'macbook pro' },
+            { id: 5, categoryId: 2, name: 'macbook air' },
+            { id: 6, categoryId: 1, name: 'iphone 7' },
+            { id: 7, categoryId: 3, name: 'ipad pro' },
+            { id: 8, categoryId: 3, name: 'ipad mini' },
+            { id: 9, categoryId: 2, name: 'macbook' }
+        ];
+
+        var subSubCategories = [
+            { id: 1, subCategoryId: 1, size: '256 GB'},
+            { id: 2, subCategoryId: 1, size: '512 GB'},
+            { id: 3, subCategoryId: 2, size: '256 GB'},
+            { id: 4, subCategoryId: 2, size: '512 GB'},
+            { id: 5, subCategoryId: 3, size: '128GB'},
+            { id: 6, subCategoryId: 3, size: '256GB'},
+            { id: 7, subCategoryId: 4, size: '1 TB'},
+            { id: 8, subCategoryId: 4, size: '2 TB'},
+            { id: 9, subCategoryId: 5, size: '512 GB'},
+            { id: 10, subCategoryId: 5, size: '1 TB'},
+            { id: 11, subCategoryId: 6, size: '64 GB'},
+            { id: 12, subCategoryId: 6, size: '128 GB'},
+            { id: 13, subCategoryId: 7, size: '256 GB'},
+            { id: 14, subCategoryId: 7, size: '512 GB'},
+            { id: 15, subCategoryId: 8, size: '64 GB'},
+            { id: 16, subCategoryId: 8, size: '128 GB'},
+            { id: 17, subCategoryId: 9, size: '256 GB'},
+            { id: 18, subCategoryId: 9, size: '512 GB'},
+            
+        ]
+
+
+        var categoryHandle = document.getElementById('category');
+        var subCategoryHandle = document.getElementById('subCategory');
+        var subSubCategoryHandle = document.getElementById('subsubCategory');
+        
+
+        categories.forEach(function (category) {
+            var optionTag = document.createElement('option');
+            optionTag.setAttribute('value', category.id);
+            var text = document.createTextNode(category.name);
+            optionTag.appendChild(text);
+            categoryHandle.appendChild(optionTag);
+        });
+
+        function buildSubCategories(subCategories) {
+            var defaultOptionTag = document.createElement('option');
+                defaultOptionTag.setAttribute('value', '');
+                var text = document.createTextNode('select option');
+                defaultOptionTag.appendChild(text); 
+                subCategoryHandle.appendChild(defaultOptionTag);
+            subCategories.forEach(function (subCategory) {
+                var optionTag = document.createElement('option');
+                optionTag.setAttribute('value', subCategory.id);
+                var text = document.createTextNode(subCategory.name);
+                optionTag.appendChild(text);
+                subCategoryHandle.appendChild(optionTag);
+            });
+        }
+        buildSubCategories(subCategories);
+
+
+        function buildSubSubCategories(subSubCategories) {
+            
+            subSubCategories.forEach(function (subCategory) {
+                var optionTag = document.createElement('option');
+                optionTag.setAttribute('value', subCategory.id);
+                var text = document.createTextNode(subCategory.size);
+                optionTag.appendChild(text);
+                subSubCategoryHandle.appendChild(optionTag);
+            });
+        }
+        buildSubSubCategories(subSubCategories);
+
+        categoryHandle.addEventListener('change', function () {
+            var filteredSubCategories = subCategories.filter(function (subCategory) {
+                return subCategory.categoryId == categoryHandle.value;
+            });
+            subCategoryHandle.innerHTML = '';
+            buildSubCategories(filteredSubCategories);
+        }, false)
+
+        subCategoryHandle.addEventListener('change', function () {
+            var filteredSubCategories = subSubCategories.filter(function (subCategory) {
+                return subCategory.subCategoryId == subCategoryHandle.value;
+            });
+            subSubCategoryHandle.innerHTML = '';
+            buildSubSubCategories(filteredSubCategories);
+        }, false)
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
